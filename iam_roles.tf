@@ -117,6 +117,31 @@ resource "aws_iam_policy" "codebuild_base_policy" {
       "Resource": "*"
 
     },
+     {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::bitcube-codepipeline-bucket", 
+                "arn:aws:s3:::bitcube-codepipeline-bucket/*" 
+            ]
+        },
+                {
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::codepipeline-us-east-1-*"
+            ],
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:GetObjectVersion",
+                "s3:GetBucketAcl",
+                "s3:GetBucketLocation"
+            ]
+        },
+        
     {
       "Effect": "Allow",
       "Action": [
