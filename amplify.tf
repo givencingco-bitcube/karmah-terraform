@@ -12,10 +12,10 @@ resource "aws_amplify_app" "karmah_amplify" {
       phases:
         preBuild:
           commands:
-            - yarn install
+            []
         build:
           commands:
-            - yarn run build
+            []
       artifacts:
         baseDirectory: .next
         files:
