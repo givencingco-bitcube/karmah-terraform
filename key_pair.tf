@@ -24,7 +24,7 @@ resource "aws_secretsmanager_secret_version" "ec2_key_pair" {
 module "key_pair" {
   source = "terraform-aws-modules/key-pair/aws"
 
-  key_name   = "Karmah_Key_Pair100"
+  key_name   = "Karmah_Key_Pair200"
   public_key = trimspace(tls_private_key.this.public_key_openssh)
   
 
