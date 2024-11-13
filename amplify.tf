@@ -7,22 +7,24 @@ resource "aws_amplify_app" "karmah_amplify" {
 
   # The default build_spec added by the Amplify Console for React.
   build_spec = <<-EOT
-    version: 0.1
-    frontend:
-      phases:
-        preBuild:
-          commands:
-            - yarn install
-        build:
-          commands:
-            - yarn run build
-      artifacts:
-        baseDirectory: out
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+ version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci --cache .npm --prefer-offline
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*
+      - .npm/**/*
+
   EOT
 
   # The default rewrites and redirects added by the Amplify Console.
