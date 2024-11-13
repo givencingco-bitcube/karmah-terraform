@@ -13,3 +13,8 @@ resource "aws_ecr_repository" "bitcube_repository" {
     Environment = "dev"
   }
 }
+
+# Reference the repository URL
+output "ecr_repository_url" {
+  value = aws_ecr_repository.bitcube_repository.repository_url
+}

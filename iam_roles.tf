@@ -20,6 +20,47 @@ resource "aws_iam_role" "eb_instance_role" {
   })
 }
 
+# Attach the required policies for ECR, CloudWatch Logs, and S3 access
+resource "aws_iam_policy" "eb_instance_policy" {
+  name        = "eb-instance-policy"
+  description = "Policy for Elastic Beanstalk EC2 instance to access ECR, CloudWatch Logs, and S3"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage"
+        ],
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = "logs:*",
+        Resource = "*"
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        Resource = "arn:aws:s3:::given-karma-project-bucket/*"
+      }
+    ]
+  })
+}
+
+# Attach the policy to the instance role
+resource "aws_iam_role_policy_attachment" "eb_instance_role_policy_attachment" {
+  role       = aws_iam_role.eb_instance_role.name
+  policy_arn = aws_iam_policy.eb_instance_policy.arn
+}
+
 # Attach the Elastic Beanstalk Managed Policy to the Role
 resource "aws_iam_role_policy_attachment" "eb_instance_web_tier_policy" {
   role       = aws_iam_role.eb_instance_role.name
@@ -60,6 +101,24 @@ resource "aws_iam_role" "eb_service_role" {
     ]
   })
 }
+
+# Create IAM Role for Elastic Beanstalk EC2 instances
+# resource "aws_iam_role" "eb_instance_role" {
+#   name = "aws-elasticbeanstalk-ec2-role"
+
+#   assume_role_policy = jsonencode({
+#     Version = "2012-10-17",
+#     Statement = [
+#       {
+#         Action = "sts:AssumeRole",
+#         Effect = "Allow",
+#         Principal = {
+#           Service = "ec2.amazonaws.com"
+#         }
+#       }
+#     ]
+#   })
+# }
 
 # Attach the Elastic Beanstalk Managed Policy to the Role
 # resource "aws_iam_role_policy_attachment" "eb_service_BasicHealth_policy" {
@@ -492,3 +551,27 @@ resource "aws_s3_bucket_policy" "codepipeline_bucket_policy" {
     ]
   })
 }
+
+
+/* AWS Amplify Role */
+resource "aws_iam_role" "amplify_role" {
+  name = "AmplifyServiceRole"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+  
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "amplify.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+

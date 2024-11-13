@@ -66,3 +66,16 @@ variable "bucket" {
   description = "Bucket "
   type        = string
 }
+
+variable "ecr_repository_url" {
+  type = string
+  description = "ECR repository image repo"
+    default     = "karmah"
+  
+}
+
+variable "branch_name" {
+  type        = string
+  description = "AWS Amplify App Repo Branch Name"
+  default     = "main"
+}
