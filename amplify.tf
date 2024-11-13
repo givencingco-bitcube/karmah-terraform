@@ -17,7 +17,7 @@ resource "aws_amplify_app" "karmah_amplify" {
           commands:
             - yarn run build
       artifacts:
-        baseDirectory: build
+        baseDirectory: out
         files:
           - '**/*'
       cache:
