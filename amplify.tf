@@ -17,7 +17,7 @@ resource "aws_amplify_app" "karmah_amplify" {
           commands:
             - npm run build
       artifacts:
-        baseDirectory: build
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
@@ -26,12 +26,12 @@ resource "aws_amplify_app" "karmah_amplify" {
           - .npm/**/*
   EOT
 
-  # # The default rewrites and redirects added by the Amplify Console.
-  # custom_rule {
-  #   source = "/<*>"
-  #   status = "200"
-  #   target = "/index.html"
-  # }
+  # The default rewrites and redirects added by the Amplify Console.
+  custom_rule {
+    source = "/<*>"
+    status = "200"
+    target = "/"
+  }
 
   environment_variables = {
     ENV = "test"
