@@ -34,7 +34,7 @@ resource "aws_amplify_app" "karmah_amplify" {
   }
 
   environment_variables = {
-    ENV = "test"
+    ENV = "prod"
   }
 }
 
