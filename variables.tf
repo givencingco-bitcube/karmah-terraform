@@ -68,10 +68,10 @@ variable "bucket" {
 }
 
 variable "ecr_repository_url" {
-  type = string
+  type        = string
   description = "ECR repository image repo"
-    default     = "karmah"
-  
+  default     = "karmah"
+
 }
 
 variable "branch_name" {

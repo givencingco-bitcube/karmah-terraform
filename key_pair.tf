@@ -26,7 +26,7 @@
 
 #   key_name   = "Karmah_Key_Pair300"
 #   public_key = trimspace(tls_private_key.this.public_key_openssh)
-  
+
 
 # }
 # output "private_key" {

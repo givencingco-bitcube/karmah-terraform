@@ -3,7 +3,7 @@ data "aws_secretsmanager_secret_version" "creds" {
 }
 
 locals {
- github_token = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string).access_token
+  github_token = jsondecode(data.aws_secretsmanager_secret_version.creds.secret_string).access_token
 }
 
 

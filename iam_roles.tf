@@ -39,8 +39,8 @@ resource "aws_iam_policy" "eb_instance_policy" {
         Resource = "*"
       },
       {
-        Effect = "Allow",
-        Action = "logs:*",
+        Effect   = "Allow",
+        Action   = "logs:*",
         Resource = "*"
       },
       {
