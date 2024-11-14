@@ -29,8 +29,8 @@ resource "aws_amplify_app" "karmah_amplify" {
   # The default rewrites and redirects added by the Amplify Console.
   custom_rule {
     source = "/<*>"
-    status = "200"
-    target = "/"
+    status = "404"
+    target = "/index.html"
   }
 
   environment_variables = {
